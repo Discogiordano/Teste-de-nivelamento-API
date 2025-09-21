@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/hospital-api/src/main/java/com/hospital/service/ValidationException.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/hospital-api/src/main/java/com/hospital/service/ValidationException.java" />
+              <option name="updatedContent" value="package com.hospital.service;&#10;&#10;public class ValidationException extends RuntimeException {&#10;    public ValidationException(String message) {&#10;        super(message);&#10;    }&#10;}&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
