@@ -5,20 +5,22 @@ import com.hospital.model.dto.FichaPacienteRequestDto;
 import com.hospital.model.PlanoDeSaude;
 import com.hospital.model.Especialidade;
 import com.hospital.repository.FichaPacienteRepository;
+import com.hospital.repository.EspecialidadeRepository;
+import com.hospital.repository.PlanoDeSaudeRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import java.util.List;
 
 @ApplicationScoped
 public class FichaPacienteService {
     private final FichaPacienteRepository repository;
-    @PersistenceContext
-    EntityManager em;
+    private final EspecialidadeRepository especialidadeRepository;
+    private final PlanoDeSaudeRepository planoDeSaudeRepository;
 
-    public FichaPacienteService(FichaPacienteRepository repository) {
+    public FichaPacienteService(FichaPacienteRepository repository, EspecialidadeRepository especialidadeRepository, PlanoDeSaudeRepository planoDeSaudeRepository) {
         this.repository = repository;
+        this.especialidadeRepository = especialidadeRepository;
+        this.planoDeSaudeRepository = planoDeSaudeRepository;
     }
 
     public List<FichaPaciente> listar(String nomePaciente, Long especialidadeId, Long planoDeSaudeId) {
@@ -31,11 +33,11 @@ public class FichaPacienteService {
         if (numeroCarteira == null || numeroCarteira.length() > 255 || numeroCarteira.length() < 6 || !numeroCarteira.matches("^[A-Za-z0-9]+$")) {
             return "O número da carteira do plano deve ser alfanumérico, entre 6 e 255 caracteres.";
         }
-        PlanoDeSaude plano = em.find(PlanoDeSaude.class, dto.getPlanoDeSaudeId());
+        PlanoDeSaude plano = planoDeSaudeRepository.findById(dto.getPlanoDeSaudeId());
         if (plano == null) {
             return "Plano de saúde informado não existe.";
         }
-        Especialidade especialidade = em.find(Especialidade.class, dto.getEspecialidadeId());
+        Especialidade especialidade = especialidadeRepository.findById(dto.getEspecialidadeId());
         if (especialidade == null) {
             return "Especialidade informada não existe.";
         }
@@ -55,11 +57,11 @@ public class FichaPacienteService {
     public Object atualizar(Long id, FichaPacienteRequestDto dto) {
         FichaPaciente ficha = repository.findById(id);
         if (ficha == null) return "Ficha não encontrada";
-        PlanoDeSaude plano = em.find(PlanoDeSaude.class, dto.getPlanoDeSaudeId());
+        PlanoDeSaude plano = planoDeSaudeRepository.findById(dto.getPlanoDeSaudeId());
         if (plano == null) {
             return "Plano de saúde informado não existe.";
         }
-        Especialidade especialidade = em.find(Especialidade.class, dto.getEspecialidadeId());
+        Especialidade especialidade = especialidadeRepository.findById(dto.getEspecialidadeId());
         if (especialidade == null) {
             return "Especialidade informada não existe.";
         }
@@ -80,5 +82,13 @@ public class FichaPacienteService {
         if (ficha != null) {
             repository.delete(ficha);
         }
+    }
+
+    public List<Especialidade> listarEspecialidades() {
+        return especialidadeRepository.findAll();
+    }
+
+    public List<PlanoDeSaude> listarPlanosDeSaude() {
+        return planoDeSaudeRepository.findAll();
     }
 }
