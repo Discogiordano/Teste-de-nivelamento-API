@@ -89,3 +89,8 @@ mvnw quarkus:dev
 ou
 ./mvnw quarkus:dev
 
+---
+
+### 5) Acessar a API
+
+Após iniciar o projeto, acesse [http://localhost:8080](http://localhost:8080) no navegador para utilizar a API.
