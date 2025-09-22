@@ -66,4 +66,34 @@ public class FichaPacienteController {
     public List<FichaPacienteListagemDto> listarTodos() {
         return service.listarTodos();
     }
+
+    @GET
+    @Path("/listar-fichas-por-nome")
+    public List<FichaPacienteListagemDto> listarPorNome(@QueryParam("nomePaciente") String nomePaciente) {
+        String nomeUp = nomePaciente != null ? nomePaciente.toUpperCase() : null;
+        return service.listarPorNome(nomeUp);
+    }
+
+    @GET
+    @Path("/listar-fichas-por-numero-plano")
+    public List<FichaPacienteListagemDto> listarPorNumeroPlano(@QueryParam("numeroCarteiraPlano") String numeroCarteiraPlano) {
+        if (numeroCarteiraPlano == null || numeroCarteiraPlano.isEmpty()) {
+            return List.of();
+        }
+        return service.listarPorNumeroPlano(numeroCarteiraPlano);
+    }
+
+    @GET
+    @Path("/listar-fichas-por-especialidade")
+    public List<FichaPacienteListagemDto> listarPorEspecialidade(@QueryParam("especialidadeNome") String especialidadeNome) {
+        String nomeUp = especialidadeNome != null ? especialidadeNome.toUpperCase() : null;
+        return service.listarPorEspecialidadeNome(nomeUp);
+    }
+
+    @GET
+    @Path("/listar-fichas-por-plano")
+    public List<FichaPacienteListagemDto> listarPorPlano(@QueryParam("planoNome") String planoNome) {
+        String nomeUp = planoNome != null ? planoNome.toUpperCase() : null;
+        return service.listarPorPlanoNome(nomeUp);
+    }
 }

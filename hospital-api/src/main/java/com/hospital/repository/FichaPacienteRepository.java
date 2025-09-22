@@ -30,4 +30,34 @@ public class FichaPacienteRepository implements PanacheRepository<FichaPaciente>
     public List<FichaPaciente> findAllPaginado(int offset, int pageSize) {
         return findAll().page(offset / pageSize, pageSize).list();
     }
+
+    public List<FichaPaciente> findByNomeUpcase(String nomePacienteUp) {
+        if (nomePacienteUp == null) return List.of();
+        return find("UPPER(nomePaciente) like ?1", "%" + nomePacienteUp + "%").list();
+    }
+
+    public List<FichaPaciente> findByNumeroPlano(String numeroCarteiraPlano) {
+        if (numeroCarteiraPlano == null) return List.of();
+        return find("numeroCarteiraPlano like ?1", numeroCarteiraPlano + "%").list();
+    }
+
+    public List<FichaPaciente> findByEspecialidade(Long especialidadeId) {
+        if (especialidadeId == null) return List.of();
+        return find("especialidade.id = ?1", especialidadeId).list();
+    }
+
+    public List<FichaPaciente> findByPlano(Long planoId) {
+        if (planoId == null) return List.of();
+        return find("planoDeSaude.id = ?1", planoId).list();
+    }
+
+    public List<FichaPaciente> findByEspecialidadeNomeUpcase(String especialidadeNomeUp) {
+        if (especialidadeNomeUp == null) return List.of();
+        return find("UPPER(especialidade.nome) like ?1", "%" + especialidadeNomeUp + "%").list();
+    }
+
+    public List<FichaPaciente> findByPlanoNomeUpcase(String planoNomeUp) {
+        if (planoNomeUp == null) return List.of();
+        return find("UPPER(planoDeSaude.nome) like ?1", "%" + planoNomeUp + "%").list();
+    }
 }
