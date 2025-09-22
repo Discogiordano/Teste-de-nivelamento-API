@@ -96,6 +96,7 @@ public class FichaPacienteService {
     public List<FichaPacienteListagemDto> listarTodos() {
         return repository.findAll().stream()
             .map(f -> new FichaPacienteListagemDto(
+                f.getId(),
                 f.getNomePaciente(),
                 f.getNumeroCarteiraPlano(),
                 f.getEspecialidade() != null ? f.getEspecialidade().getNome() : null,
@@ -107,6 +108,7 @@ public class FichaPacienteService {
     public List<FichaPacienteListagemDto> listarPorNome(String nomePacienteUp) {
         return repository.findByNomeUpcase(nomePacienteUp).stream()
             .map(f -> new FichaPacienteListagemDto(
+                f.getId(),
                 f.getNomePaciente(),
                 f.getNumeroCarteiraPlano(),
                 f.getEspecialidade() != null ? f.getEspecialidade().getNome() : null,
@@ -117,6 +119,7 @@ public class FichaPacienteService {
     public List<FichaPacienteListagemDto> listarPorNumeroPlano(String numeroCarteiraPlano) {
         return repository.findByNumeroPlano(numeroCarteiraPlano).stream()
             .map(f -> new FichaPacienteListagemDto(
+                f.getId(),
                 f.getNomePaciente(),
                 f.getNumeroCarteiraPlano(),
                 f.getEspecialidade() != null ? f.getEspecialidade().getNome() : null,
@@ -127,6 +130,7 @@ public class FichaPacienteService {
     public List<FichaPacienteListagemDto> listarPorEspecialidade(Long especialidadeId) {
         return repository.findByEspecialidade(especialidadeId).stream()
             .map(f -> new FichaPacienteListagemDto(
+                f.getId(),
                 f.getNomePaciente(),
                 f.getNumeroCarteiraPlano(),
                 f.getEspecialidade() != null ? f.getEspecialidade().getNome() : null,
@@ -137,6 +141,7 @@ public class FichaPacienteService {
     public List<FichaPacienteListagemDto> listarPorPlano(Long planoId) {
         return repository.findByPlano(planoId).stream()
             .map(f -> new FichaPacienteListagemDto(
+                f.getId(),
                 f.getNomePaciente(),
                 f.getNumeroCarteiraPlano(),
                 f.getEspecialidade() != null ? f.getEspecialidade().getNome() : null,
@@ -147,6 +152,7 @@ public class FichaPacienteService {
     public List<FichaPacienteListagemDto> listarPorEspecialidadeNome(String especialidadeNomeUp) {
         return repository.findByEspecialidadeNomeUpcase(especialidadeNomeUp).stream()
             .map(f -> new FichaPacienteListagemDto(
+                f.getId(),
                 f.getNomePaciente(),
                 f.getNumeroCarteiraPlano(),
                 f.getEspecialidade() != null ? f.getEspecialidade().getNome() : null,
@@ -157,10 +163,15 @@ public class FichaPacienteService {
     public List<FichaPacienteListagemDto> listarPorPlanoNome(String planoNomeUp) {
         return repository.findByPlanoNomeUpcase(planoNomeUp).stream()
             .map(f -> new FichaPacienteListagemDto(
+                f.getId(),
                 f.getNomePaciente(),
                 f.getNumeroCarteiraPlano(),
                 f.getEspecialidade() != null ? f.getEspecialidade().getNome() : null,
                 f.getPlanoDeSaude() != null ? f.getPlanoDeSaude().getNome() : null
             )).toList();
+    }
+
+    public FichaPaciente buscarPorId(Long id) {
+        return repository.findById(id);
     }
 }

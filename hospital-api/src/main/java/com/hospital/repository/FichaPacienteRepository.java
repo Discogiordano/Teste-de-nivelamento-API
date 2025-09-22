@@ -27,9 +27,6 @@ public class FichaPacienteRepository implements PanacheRepository<FichaPaciente>
         return count("planoDeSaude.id = ?1 and especialidade.id = ?2 and numeroCarteiraPlano = ?3 and id <> ?4", planoDeSaudeId, especialidadeId, numeroCarteiraPlano, excludeId) > 0;
     }
 
-    public List<FichaPaciente> findAllPaginado(int offset, int pageSize) {
-        return findAll().page(offset / pageSize, pageSize).list();
-    }
 
     public List<FichaPaciente> findByNomeUpcase(String nomePacienteUp) {
         if (nomePacienteUp == null) return List.of();

@@ -96,4 +96,21 @@ public class FichaPacienteController {
         String nomeUp = planoNome != null ? planoNome.toUpperCase() : null;
         return service.listarPorPlanoNome(nomeUp);
     }
+
+    @GET
+    @Path("/buscar-ficha/{id}")
+    public Response buscarPorId(@PathParam("id") Long id) {
+        FichaPaciente ficha = service.buscarPorId(id);
+        if (ficha == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Ficha não encontrada").build();
+        }
+        FichaPacienteListagemDto dto = new FichaPacienteListagemDto(
+            ficha.getId(),
+            ficha.getNomePaciente(),
+            ficha.getNumeroCarteiraPlano(),
+            ficha.getEspecialidade() != null ? ficha.getEspecialidade().getNome() : null,
+            ficha.getPlanoDeSaude() != null ? ficha.getPlanoDeSaude().getNome() : null
+        );
+        return Response.ok(dto).build();
+    }
 }
