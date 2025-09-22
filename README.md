@@ -64,7 +64,7 @@ git clone https://github.com/Discogiordano/Teste-de-nivelamento-API.git
 2. Selecione a pasta **Teste-de-nivelamento-API** (onde está o `pom.xml`).  
 3. Aguarde o IntelliJ **baixar as dependências Maven**.  
 4. Se não importar automático: **View → Tool Windows → Maven → Reload All Maven Projects**.
-5. ou digite no terminal: "mvn install" ou "./mvnw clean install"
+5. Ou digite no terminal: "mvn install" ou "./mvnw clean install"
 
 ---
 
@@ -79,6 +79,11 @@ git clone https://github.com/Discogiordano/Teste-de-nivelamento-API.git
 ### 4) Executar o projeto
 
 #### ) Pelo terminal
+
+Digite no terminal:
+cd hospital-api
+
+Depois:
 
 mvnw quarkus:dev
 ou
