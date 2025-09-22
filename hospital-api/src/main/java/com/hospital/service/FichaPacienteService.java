@@ -2,6 +2,7 @@ package com.hospital.service;
 
 import com.hospital.model.FichaPaciente;
 import com.hospital.model.dto.FichaPacienteRequestDto;
+import com.hospital.model.dto.FichaPacienteListagemDto;
 import com.hospital.model.PlanoDeSaude;
 import com.hospital.model.Especialidade;
 import com.hospital.repository.FichaPacienteRepository;
@@ -90,5 +91,16 @@ public class FichaPacienteService {
 
     public List<PlanoDeSaude> listarPlanosDeSaude() {
         return planoDeSaudeRepository.findAll();
+    }
+
+    public List<FichaPacienteListagemDto> listarTodos() {
+        return repository.findAll().stream()
+            .map(f -> new FichaPacienteListagemDto(
+                f.getNomePaciente(),
+                f.getNumeroCarteiraPlano(),
+                f.getEspecialidade() != null ? f.getEspecialidade().getNome() : null,
+                f.getPlanoDeSaude() != null ? f.getPlanoDeSaude().getNome() : null
+            ))
+            .toList();
     }
 }

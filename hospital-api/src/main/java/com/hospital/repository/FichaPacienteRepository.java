@@ -26,4 +26,8 @@ public class FichaPacienteRepository implements PanacheRepository<FichaPaciente>
     public boolean existsByPlanoAndEspecialidade(Long planoDeSaudeId, Long especialidadeId, String numeroCarteiraPlano, Long excludeId) {
         return count("planoDeSaude.id = ?1 and especialidade.id = ?2 and numeroCarteiraPlano = ?3 and id <> ?4", planoDeSaudeId, especialidadeId, numeroCarteiraPlano, excludeId) > 0;
     }
+
+    public List<FichaPaciente> findAllPaginado(int offset, int pageSize) {
+        return findAll().page(offset / pageSize, pageSize).list();
+    }
 }

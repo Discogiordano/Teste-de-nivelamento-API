@@ -2,6 +2,7 @@ package com.hospital.controller;
 
 import com.hospital.model.FichaPaciente;
 import com.hospital.model.dto.FichaPacienteRequestDto;
+import com.hospital.model.dto.FichaPacienteListagemDto;
 import com.hospital.service.FichaPacienteService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -58,5 +59,11 @@ public class FichaPacienteController {
     public Response deletar(@PathParam("id") Long id) {
         service.deletar(id);
         return Response.noContent().build();
+    }
+
+    @GET
+    @Path("/listar-fichas-todas")
+    public List<FichaPacienteListagemDto> listarTodos() {
+        return service.listarTodos();
     }
 }
